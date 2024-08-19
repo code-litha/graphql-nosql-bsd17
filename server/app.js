@@ -1,7 +1,10 @@
+require("dotenv").config();
+
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { bookTypeDefs, bookResolvers } = require("./schemas/book");
 const { productTypeDefs, productResolvers } = require("./schemas/product");
+const { mongoConnect } = require("./config/mongoConnect");
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
@@ -13,6 +16,7 @@ const server = new ApolloServer({
 
 async function listenApp() {
   try {
+    await mongoConnect();
     const { url } = await startStandaloneServer(server, {
       listen: { port: 4000 },
     });
