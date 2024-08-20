@@ -20,4 +20,5 @@ function getDatabase() {
 module.exports = {
   mongoConnect,
   getDatabase,
+  client,
 };
