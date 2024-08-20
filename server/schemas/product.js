@@ -1,6 +1,10 @@
-const { ObjectId } = require("mongodb");
-const { getDatabase } = require("../config/mongoConnect");
-const { getAllProducts, getProductById } = require("../model/product");
+const {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  deleteProduct,
+  addImagesToProduct,
+} = require("../models/product");
 
 const typeDefs = `#graphql    #ini wajib tambahkan paling awal
   type Product {
@@ -11,6 +15,14 @@ const typeDefs = `#graphql    #ini wajib tambahkan paling awal
     createdAt: String
     comments: [String]
     likes: [String]
+    authorId: ID    #reference document
+    author: User
+    images: [Image]
+  }
+
+  type Image {       #embedded document
+    url: String
+    createdAt: String
   }
 
   type Query {
@@ -21,17 +33,26 @@ const typeDefs = `#graphql    #ini wajib tambahkan paling awal
   type Mutation {
     addProduct(name: String!, price: Int!, quantity: Int!) : Product
     deleteProductById(productId: ID!): String
+    addImageToProduct(url: String!, productId: ID!): Product
   }
 `;
 
 const resolvers = {
   Query: {
-    getProducts: async () => {
+    getProducts: async (parent, args, contextValue) => {
+      // console.log(await contextValue.auth(), "<<< contextValue");
+      const userLogin = await contextValue.auth();
+
+      console.log(userLogin, "<<< userLogin");
       const products = await getAllProducts();
 
       return products;
     },
-    getProductById: async (parent, args) => {
+    getProductById: async (parent, args, contextValue) => {
+      // console.log(contextValue.auth(), "<<< contextValue");
+      const userLogin = await contextValue.auth();
+
+      // console.log(userLogin, "<<< userLogin");
       const { productId } = args;
 
       const product = await getProductById(productId);
@@ -43,37 +64,21 @@ const resolvers = {
     addProduct: async (parent, args) => {
       const { name, price, quantity } = args;
 
-      const db = getDatabase();
-      const productCollection = db.collection("products");
-      // const userCollection = db.collection('users')
-
-      const newProduct = await productCollection.insertOne({
-        name,
-        price,
-        quantity,
-        createdAt: new Date(),
-        comments: [],
-        likes: [],
-      });
-
-      // console.log(newProduct, "<<< new product { acknowledge, insertedId }");
-
-      const product = await productCollection.findOne({
-        _id: newProduct.insertedId,
-      });
+      const product = await createProduct(name, price, quantity);
 
       return product;
     },
     deleteProductById: async (parent, args) => {
       const { productId } = args;
-      const db = getDatabase();
-      const productCollection = db.collection("products");
 
-      await productCollection.deleteOne({
-        _id: new ObjectId(productId),
-      });
+      await deleteProduct(productId);
 
       return `Successfully delete product`;
+    },
+    addImageToProduct: async (parent, args) => {
+      const { url, productId } = args;
+
+      return await addImagesToProduct(url, productId);
     },
   },
 };
