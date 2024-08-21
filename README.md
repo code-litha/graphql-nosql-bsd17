@@ -1,19 +1,10 @@
-# NOSQL ADVANCE
+# LECTURE REACT NATIVE
 
-## Table of Contents
+## Table of Content
 
-### Sesi 1
-
-- [Authentication](https://www.apollographql.com/docs/apollo-server/security/authentication/)
-- [Aggregation](https://www.mongodb.com/docs/manual/aggregation/)
-- [Add Embedded Documents](https://www.mongodb.com/docs/manual/reference/operator/update/addToSet/)
-
-### Sesi 2
-
-- [Transaction on MongoDB](https://www.mongodb.com/docs/drivers/node/current/fundamentals/transactions/)
-- [Caching with Redis](https://www.npmjs.com/package/ioredis)
-
-## Reference
-
-- [Slide Sesi 1](https://docs.google.com/presentation/d/1ysbDUB_G4-n1cOP36SOmf2ULfHizWHGPco_96RscoQQ/edit)
-- [Slide Sesi 2](https://docs.google.com/presentation/d/1gXdbYvD1qrjehCW48g7k0lXBGcU8s_P7oLTDZuXoDrY/edit)
+- Apa itu react native (https://reactnative.dev/)
+- Menggunakan Expo sebagai framework (https://reactnative.dev/docs/environment-setup)
+- Bare Workflow & Manage Workflow (https://docs.expo.dev/introduction/managed-vs-bare/)
+- Komponen yang tersedia: [expo](https://docs.expo.dev/versions/latest/), [React Native](https://reactnative.dev/docs/intro-react-native-components)
+- Flex styling (https://reactnative.dev/docs/flexbox)
+- ScrollView vs FlatList (https://reactnative.dev/docs/next/scrollview)
