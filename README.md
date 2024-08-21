@@ -1,10 +1,17 @@
-# LECTURE REACT NATIVE
+# React Navigation
 
 ## Table of Content
 
-- Apa itu react native (https://reactnative.dev/)
-- Menggunakan Expo sebagai framework (https://reactnative.dev/docs/environment-setup)
-- Bare Workflow & Manage Workflow (https://docs.expo.dev/introduction/managed-vs-bare/)
-- Komponen yang tersedia: [expo](https://docs.expo.dev/versions/latest/), [React Native](https://reactnative.dev/docs/intro-react-native-components)
-- Flex styling (https://reactnative.dev/docs/flexbox)
-- ScrollView vs FlatList (https://reactnative.dev/docs/next/scrollview)
+- Navigation types
+  - Stack Navigation
+  - Tab Navigation
+- Moving Between screens
+- Passing params
+- Nested navigators
+
+## References
+
+- [react-navigation](https://reactnavigation.org/)
+- [expo-icons](https://docs.expo.dev/guides/icons/)
+- [icons](https://icons.expo.fyi/)
+- [navigation-types](https://react-native-course.elazizi.com/static/656b36f0d87d6ecd97bae87a0f40e51a/2faef/navigators.png)
