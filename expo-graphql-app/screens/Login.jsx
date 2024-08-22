@@ -6,11 +6,43 @@ import {
   TouchableOpacity,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../config/queries";
+import { useContext, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../context/AuthContext";
 
 export default function LoginScreen({ navigation }) {
-  const onSubmit = () => {
-    console.log("submit form login");
-    navigation.navigate("Home");
+  const { setIsLoggedIn } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginFunc, { data }] = useMutation(LOGIN, {
+    onCompleted: async (responseData) => {
+      // console.log(responseData, "<<< responseData");
+      const token = responseData?.login?.token || "";
+
+      // console.log(token, "<<< token");
+      await SecureStore.setItemAsync("token", token);
+      setIsLoggedIn(true);
+      navigation.navigate("Home");
+    },
+  });
+
+  const onSubmit = async () => {
+    try {
+      // console.log("submit form login");
+      // navigation.navigate("Home");
+      // console.log({ email, password });
+      await loginFunc({
+        variables: {
+          email: email,
+          password: password,
+        },
+      });
+      // console.log(data, "<<< data");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -21,12 +53,22 @@ export default function LoginScreen({ navigation }) {
       <View style={[styles.boxForm]}>
         <View style={[styles.boxInput]}>
           <Text>Email</Text>
-          <TextInput style={[styles.textInput]} textContentType={"email"} />
+          <TextInput
+            style={[styles.textInput]}
+            textContentType={"email"}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
         </View>
 
         <View style={[styles.boxInput]}>
           <Text>Password</Text>
-          <TextInput style={[styles.textInput]} textContentType={"password"} />
+          <TextInput
+            style={[styles.textInput]}
+            textContentType={"password"}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
         </View>
       </View>
 

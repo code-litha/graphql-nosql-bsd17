@@ -7,26 +7,54 @@ import LoginScreen from "./screens/Login";
 import ProductDetailScreen from "./screens/ProductDetail";
 import { ApolloProvider } from "@apollo/client";
 import client from "./config/apollo";
+import { createContext, useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "./context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const getToken = async () => {
+    const token = await SecureStore.getItemAsync("token");
+    console.log(token, "<<< token di app");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }}>
         <ApolloProvider client={client}>
-          <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="MainTab" component={MainTab} />
-              <Stack.Screen
-                name="ProductDetail"
-                component={ProductDetailScreen}
-                options={{ headerShown: true }}
-              />
-              <Stack.Screen name="Register" component={RegisterScreen} />
-              <Stack.Screen name="Login" component={LoginScreen} />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{ headerShown: false }}>
+                {isLoggedIn ? (
+                  <>
+                    <Stack.Screen name="MainTab" component={MainTab} />
+                    <Stack.Screen
+                      name="ProductDetail"
+                      component={ProductDetailScreen}
+                      options={{ headerShown: true }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Stack.Screen name="Register" component={RegisterScreen} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                  </>
+                )}
+              </Stack.Navigator>
+            </NavigationContainer>
+          </AuthContext.Provider>
         </ApolloProvider>
       </SafeAreaView>
     </SafeAreaProvider>

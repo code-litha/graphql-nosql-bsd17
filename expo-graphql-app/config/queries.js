@@ -52,3 +52,12 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 `;
+
+export const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      username
+      token
+    }
+  }
+`;
