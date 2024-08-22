@@ -1,17 +1,34 @@
-# React Navigation
+# Education React Native Authentication Flow & Apollo Client GraphQL
 
 ## Table of Content
 
-- Navigation types
-  - Stack Navigation
-  - Tab Navigation
-- Moving Between screens
-- Passing params
-- Nested navigators
+## Scope Pembelajaran
 
-## References
+- React Navigation
 
-- [react-navigation](https://reactnavigation.org/)
-- [expo-icons](https://docs.expo.dev/guides/icons/)
-- [icons](https://icons.expo.fyi/)
-- [navigation-types](https://react-native-course.elazizi.com/static/656b36f0d87d6ecd97bae87a0f40e51a/2faef/navigators.png)
+  - Authentication Flow
+
+- SecureStore
+
+  - setItemAsync
+  - getItemAsync
+  - deleteItemAsync
+
+- Apollo Client GraphQL
+
+  - Apollo Client
+  - Authentication
+  - gql
+  - useQuery
+  - useLazyQuery
+  - useMutation
+
+## Referensi
+
+- [Auth Flow React Native](https://reactnavigation.org/docs/auth-flow/#what-we-need)
+- [React Context](https://react.dev/reference/react/useContext)
+- [Secure Storage](https://docs.expo.dev/versions/latest/sdk/securestore/)
+- [Apollo Client](https://www.apollographql.com/docs/react/)
+- [ngrok](https://ngrok.com/)
+- [Authentication with Apollo Client](https://www.apollographql.com/docs/react/networking/authentication)
+- [Challenge](https://docs.google.com/document/d/11k8BX9HRvXBti9-sOC5q65rfXRxSs_ZZJQyY1FAH4-k/edit)

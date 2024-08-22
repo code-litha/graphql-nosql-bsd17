@@ -75,7 +75,7 @@ const resolvers = {
     },
     getProductById: async (parent, args, contextValue) => {
       // console.log(contextValue.auth(), "<<< contextValue");
-      const userLogin = await contextValue.auth();
+      // const userLogin = await contextValue.auth();
 
       // console.log(userLogin, "<<< userLogin");
       const { productId } = args;
