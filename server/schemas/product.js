@@ -86,7 +86,10 @@ const resolvers = {
     },
   },
   Mutation: {
-    addProduct: async (parent, args) => {
+    addProduct: async (parent, args, contextValue) => {
+      const userLogin = await contextValue.auth();
+
+      console.log(userLogin, "<<< user login");
       const { name, price, quantity } = args;
 
       const product = await createProduct(name, price, quantity);
